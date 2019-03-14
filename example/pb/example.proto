@@ -1,0 +1,80 @@
+syntax = "proto3";
+package pb;
+option go_package = "github.com/danielvladco/jrpc/example/pb;pb";
+
+service Service {
+    rpc Endpoint1 (Endpoint1Req) returns (Endpoint1Res);
+    rpc Endpoint2 (Endpoint2Req) returns (Endpoint2Res);
+    rpc Endpoint3 (Endpoint3Req) returns (Endpoint3Res);
+}
+
+message Endpoint1Req {
+    string param1 = 1;
+    int32 param2 = 2;
+    int64 param3 = 3;
+    uint32 param4 = 4;
+    bool param5 = 5;
+    bytes param6 = 6;
+    Enum param7 = 7;
+    Msg param8 = 8;
+}
+message Endpoint1Res {
+    string param1 = 1;
+    int32 param2 = 2;
+    int64 param3 = 3;
+    uint32 param4 = 4;
+    bool param5 = 5;
+    bytes param6 = 6;
+    Enum param7 = 7;
+    Msg param8 = 8;
+}
+message Endpoint2Req {
+    string param1 = 1;
+    int32 param2 = 2;
+    int64 param3 = 3;
+    uint32 param4 = 4;
+    bool param5 = 5;
+    bytes param6 = 6;
+    Enum param7 = 7;
+    Msg param8 = 8;
+}
+message Endpoint2Res {
+    string param1 = 1;
+    int32 param2 = 2;
+    int64 param3 = 3;
+    uint32 param4 = 4;
+    bool param5 = 5;
+    bytes param6 = 6;
+    Enum param7 = 7;
+    Msg param8 = 8;
+}
+message Endpoint3Req {
+    string param1 = 1;
+    int32 param2 = 2;
+    int64 param3 = 3;
+    uint32 param4 = 4;
+    bool param5 = 5;
+    bytes param6 = 6;
+    Enum param7 = 7;
+    Msg param8 = 8;
+}
+message Endpoint3Res {
+    string param1 = 1;
+    int32 param2 = 2;
+    int64 param3 = 3;
+    uint32 param4 = 4;
+    bool param5 = 5;
+    bytes param6 = 6;
+    Enum param7 = 7;
+    Msg param8 = 8;
+}
+
+message Msg {
+    string param1 = 1;
+}
+enum Enum {
+    E0 = 0;
+    E1 = 1;
+    E2 = 2;
+    E3 = 3;
+}
