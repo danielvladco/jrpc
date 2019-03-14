@@ -88,9 +88,29 @@ func (p *plugin) Generate(file *generator.FileDescriptor) {
 	for _, r := range p.Request.FileToGenerate {
 		if r == file.GetName() {
 			for _, svc := range file.GetService() {
-
+				if len(svc.Method) == 0 {
+					continue
+				}
 				p.P(`
 func `, generator.CamelCase(svc.GetName()), `HTTPServer(svc `, generator.CamelCase(svc.GetName()), `Server) `, http.Use(), `.Handler {
+	httpStatusCodes := map[`, codes.Use(), `.Code] int {
+		`, codes.Use(), `.Canceled:           400,
+		`, codes.Use(), `.Unknown:            500,
+		`, codes.Use(), `.InvalidArgument:    400,
+		`, codes.Use(), `.DeadlineExceeded:   503,
+		`, codes.Use(), `.NotFound:           404,
+		`, codes.Use(), `.AlreadyExists:      409,
+		`, codes.Use(), `.PermissionDenied:   403,
+		`, codes.Use(), `.ResourceExhausted:  503,
+		`, codes.Use(), `.FailedPrecondition: 400,
+		`, codes.Use(), `.Aborted:            400,
+		`, codes.Use(), `.OutOfRange:         400,
+		`, codes.Use(), `.Unimplemented:      404,
+		`, codes.Use(), `.Internal:           500,
+		`, codes.Use(), `.Unavailable:        503,
+		`, codes.Use(), `.DataLoss:           500,
+		`, codes.Use(), `.Unauthenticated:    401,
+	}
 	mux := `, http.Use(), `.NewServeMux()`)
 				for _, rpc := range svc.GetMethod() {
 					obj := p.TypeNameByObject(rpc.GetInputType())
@@ -116,28 +136,10 @@ func `, generator.CamelCase(svc.GetName()), `HTTPServer(svc `, generator.CamelCa
 
 	res, err := svc.`, generator.CamelCase(rpc.GetName()), `(r.Context(), req)
 	if err != nil {
-		stt, _ := `, status.Use(), `.FromError(err)
-		st := map[`, codes.Use(), `.Code] int {
-			`, codes.Use(), `.Canceled:           400,
-			`, codes.Use(), `.Unknown:            500,
-			`, codes.Use(), `.InvalidArgument:    400,
-			`, codes.Use(), `.DeadlineExceeded:   503,
-			`, codes.Use(), `.NotFound:           404,
-			`, codes.Use(), `.AlreadyExists:      409,
-			`, codes.Use(), `.PermissionDenied:   403,
-			`, codes.Use(), `.ResourceExhausted:  503,
-			`, codes.Use(), `.FailedPrecondition: 400,
-			`, codes.Use(), `.Aborted:            400,
-			`, codes.Use(), `.OutOfRange:         400,
-			`, codes.Use(), `.Unimplemented:      404,
-			`, codes.Use(), `.Internal:           500,
-			`, codes.Use(), `.Unavailable:        503,
-			`, codes.Use(), `.DataLoss:           500,
-			`, codes.Use(), `.Unauthenticated:    401,
-		}[stt.Code()]
-		b, _ := `, json.Use(), `.Marshal(stt.Details())
-		w.WriteHeader(st)
-		`, fmt.Use(), `.Fprintf(w, "{%q:%q,%q:%q, %q: %s}", "error", err.Error(), "status", stt.Code().String(), "details", b)
+		grpcStatus, _ := `, status.Use(), `.FromError(err)
+		w.WriteHeader(httpStatusCodes[grpcStatus.Code()])
+		bytes, _ := encoding_json.Marshal(grpcStatus.Details())
+		fmt.Fprintf(w, "{%q:%q,%q:%q, %q: %s}", "error", err.Error(), "status", grpcStatus.Code().String(), "details", bytes)
 		return
 	}
 

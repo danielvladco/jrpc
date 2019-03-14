@@ -19,6 +19,24 @@ var _ = fmt.Errorf
 var _ = math.Inf
 
 func ServiceHTTPServer(svc ServiceServer) net_http.Handler {
+	httpStatusCodes := map[google_golang_org_grpc_codes.Code]int{
+		google_golang_org_grpc_codes.Canceled:           400,
+		google_golang_org_grpc_codes.Unknown:            500,
+		google_golang_org_grpc_codes.InvalidArgument:    400,
+		google_golang_org_grpc_codes.DeadlineExceeded:   503,
+		google_golang_org_grpc_codes.NotFound:           404,
+		google_golang_org_grpc_codes.AlreadyExists:      409,
+		google_golang_org_grpc_codes.PermissionDenied:   403,
+		google_golang_org_grpc_codes.ResourceExhausted:  503,
+		google_golang_org_grpc_codes.FailedPrecondition: 400,
+		google_golang_org_grpc_codes.Aborted:            400,
+		google_golang_org_grpc_codes.OutOfRange:         400,
+		google_golang_org_grpc_codes.Unimplemented:      404,
+		google_golang_org_grpc_codes.Internal:           500,
+		google_golang_org_grpc_codes.Unavailable:        503,
+		google_golang_org_grpc_codes.DataLoss:           500,
+		google_golang_org_grpc_codes.Unauthenticated:    401,
+	}
 	mux := net_http.NewServeMux()
 	mux.HandleFunc("/Service/Endpoint1", func(w net_http.ResponseWriter, r *net_http.Request) {
 		req := &Endpoint1Req{}
@@ -32,28 +50,10 @@ func ServiceHTTPServer(svc ServiceServer) net_http.Handler {
 
 		res, err := svc.Endpoint1(r.Context(), req)
 		if err != nil {
-			stt, _ := google_golang_org_grpc_status.FromError(err)
-			st := map[google_golang_org_grpc_codes.Code]int{
-				google_golang_org_grpc_codes.Canceled:           400,
-				google_golang_org_grpc_codes.Unknown:            500,
-				google_golang_org_grpc_codes.InvalidArgument:    400,
-				google_golang_org_grpc_codes.DeadlineExceeded:   503,
-				google_golang_org_grpc_codes.NotFound:           404,
-				google_golang_org_grpc_codes.AlreadyExists:      409,
-				google_golang_org_grpc_codes.PermissionDenied:   403,
-				google_golang_org_grpc_codes.ResourceExhausted:  503,
-				google_golang_org_grpc_codes.FailedPrecondition: 400,
-				google_golang_org_grpc_codes.Aborted:            400,
-				google_golang_org_grpc_codes.OutOfRange:         400,
-				google_golang_org_grpc_codes.Unimplemented:      404,
-				google_golang_org_grpc_codes.Internal:           500,
-				google_golang_org_grpc_codes.Unavailable:        503,
-				google_golang_org_grpc_codes.DataLoss:           500,
-				google_golang_org_grpc_codes.Unauthenticated:    401,
-			}[stt.Code()]
-			b, _ := encoding_json.Marshal(stt.Details())
-			w.WriteHeader(st)
-			fmt.Fprintf(w, "{%q:%q,%q:%q, %q: %s}", "error", err.Error(), "status", stt.Code().String(), "details", b)
+			grpcStatus, _ := google_golang_org_grpc_status.FromError(err)
+			w.WriteHeader(httpStatusCodes[grpcStatus.Code()])
+			bytes, _ := encoding_json.Marshal(grpcStatus.Details())
+			fmt.Fprintf(w, "{%q:%q,%q:%q, %q: %s}", "error", err.Error(), "status", grpcStatus.Code().String(), "details", bytes)
 			return
 		}
 
