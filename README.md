@@ -4,7 +4,7 @@ JSON-RPC? gRPC? jRPC!
 jRPC is a simple plugin that generates http endpoints from a proto schema. It is useful when your client does not have access to gRPC endpoints
 
 Try it:
-`git clone https://github.com/danielvladco/jrpc.git && cd ./jrpc/example && go run main.go` 
+`git clone https://github.com/danielvladco/jrpc.git && cd ./jrpc/example && go run server.go` 
 
 Test it:
 `curl --data '{ "bool": true, "msg": { "param1": "test" } }'  http://localhost:8080/Service/Endpoint1`
