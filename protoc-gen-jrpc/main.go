@@ -108,8 +108,8 @@ func `, generator.CamelCase(svc.GetName()), `HTTPServer(svc `, generator.CamelCa
 	defer r.Body.Close()
 	w.Header().Set("Content-Type","application/json")
 	if err := `, json.Use(), `.NewDecoder(r.Body).Decode(req); err != nil {
-		fmt.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", `, http.Use(), `.StatusText(`, http.Use(), `.StatusBadRequest))
 		w.WriteHeader(`, http.Use(), `.StatusBadRequest)
+		fmt.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", `, http.Use(), `.StatusText(`, http.Use(), `.StatusBadRequest))
 		return
 	}
 
@@ -118,32 +118,32 @@ func `, generator.CamelCase(svc.GetName()), `HTTPServer(svc `, generator.CamelCa
 	if err != nil {
 		stt, _ := `, status.Use(), `.FromError(err)
 		st := map[`, codes.Use(), `.Code] int {
-			`, codes.Use(), `.Canceled: 400,
-			`, codes.Use(), `.Unknown: 500,
-			`, codes.Use(), `.InvalidArgument: 400,
-			`, codes.Use(), `.DeadlineExceeded: 503,
-			`, codes.Use(), `.NotFound: 404,
-			`, codes.Use(), `.AlreadyExists: 400,
-			`, codes.Use(), `.PermissionDenied: 403,
-			`, codes.Use(), `.ResourceExhausted: 503,
+			`, codes.Use(), `.Canceled:           400,
+			`, codes.Use(), `.Unknown:            500,
+			`, codes.Use(), `.InvalidArgument:    400,
+			`, codes.Use(), `.DeadlineExceeded:   503,
+			`, codes.Use(), `.NotFound:           404,
+			`, codes.Use(), `.AlreadyExists:      409,
+			`, codes.Use(), `.PermissionDenied:   403,
+			`, codes.Use(), `.ResourceExhausted:  503,
 			`, codes.Use(), `.FailedPrecondition: 400,
-			`, codes.Use(), `.Aborted: 400,
-			`, codes.Use(), `.OutOfRange: 500,
-			`, codes.Use(), `.Unimplemented: 404,
-			`, codes.Use(), `.Internal: 500,
-			`, codes.Use(), `.Unavailable: 503,
-			`, codes.Use(), `.DataLoss: 500,
-			`, codes.Use(), `.Unauthenticated: 401,
+			`, codes.Use(), `.Aborted:            400,
+			`, codes.Use(), `.OutOfRange:         400,
+			`, codes.Use(), `.Unimplemented:      404,
+			`, codes.Use(), `.Internal:           500,
+			`, codes.Use(), `.Unavailable:        503,
+			`, codes.Use(), `.DataLoss:           500,
+			`, codes.Use(), `.Unauthenticated:    401,
 		}[stt.Code()]
 		b, _ := `, json.Use(), `.Marshal(stt.Details())
-		`, fmt.Use(), `.Fprintf(w, "{%q:%q,%q:%q, %q: %s}", "error", err.Error(), "status", stt.Code().String(), "details", b)
 		w.WriteHeader(st)
+		`, fmt.Use(), `.Fprintf(w, "{%q:%q,%q:%q, %q: %s}", "error", err.Error(), "status", stt.Code().String(), "details", b)
 		return
 	}
 
 	if err := `, json.Use(), `.NewEncoder(w).Encode(res); err != nil {
-		`, fmt.Use(), `.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", `, http.Use(), `.StatusText(`, http.Use(), `.StatusInternalServerError))
 		w.WriteHeader(`, http.Use(), `.StatusInternalServerError)
+		`, fmt.Use(), `.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", `, http.Use(), `.StatusText(`, http.Use(), `.StatusInternalServerError))
 		return
 	}
 })`)

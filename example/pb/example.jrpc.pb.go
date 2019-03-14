@@ -25,8 +25,8 @@ func ServiceHTTPServer(svc ServiceServer) net_http.Handler {
 		defer r.Body.Close()
 		w.Header().Set("Content-Type", "application/json")
 		if err := encoding_json.NewDecoder(r.Body).Decode(req); err != nil {
-			fmt.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", net_http.StatusText(net_http.StatusBadRequest))
 			w.WriteHeader(net_http.StatusBadRequest)
+			fmt.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", net_http.StatusText(net_http.StatusBadRequest))
 			return
 		}
 
@@ -39,12 +39,12 @@ func ServiceHTTPServer(svc ServiceServer) net_http.Handler {
 				google_golang_org_grpc_codes.InvalidArgument:    400,
 				google_golang_org_grpc_codes.DeadlineExceeded:   503,
 				google_golang_org_grpc_codes.NotFound:           404,
-				google_golang_org_grpc_codes.AlreadyExists:      400,
+				google_golang_org_grpc_codes.AlreadyExists:      409,
 				google_golang_org_grpc_codes.PermissionDenied:   403,
 				google_golang_org_grpc_codes.ResourceExhausted:  503,
 				google_golang_org_grpc_codes.FailedPrecondition: 400,
 				google_golang_org_grpc_codes.Aborted:            400,
-				google_golang_org_grpc_codes.OutOfRange:         500,
+				google_golang_org_grpc_codes.OutOfRange:         400,
 				google_golang_org_grpc_codes.Unimplemented:      404,
 				google_golang_org_grpc_codes.Internal:           500,
 				google_golang_org_grpc_codes.Unavailable:        503,
@@ -52,100 +52,14 @@ func ServiceHTTPServer(svc ServiceServer) net_http.Handler {
 				google_golang_org_grpc_codes.Unauthenticated:    401,
 			}[stt.Code()]
 			b, _ := encoding_json.Marshal(stt.Details())
-			fmt.Fprintf(w, "{%q:%q,%q:%q, %q: %s}", "error", err.Error(), "status", stt.Code().String(), "details", b)
 			w.WriteHeader(st)
+			fmt.Fprintf(w, "{%q:%q,%q:%q, %q: %s}", "error", err.Error(), "status", stt.Code().String(), "details", b)
 			return
 		}
 
 		if err := encoding_json.NewEncoder(w).Encode(res); err != nil {
-			fmt.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", net_http.StatusText(net_http.StatusInternalServerError))
 			w.WriteHeader(net_http.StatusInternalServerError)
-			return
-		}
-	})
-	mux.HandleFunc("/Service/Endpoint2", func(w net_http.ResponseWriter, r *net_http.Request) {
-		req := &Endpoint2Req{}
-		defer r.Body.Close()
-		w.Header().Set("Content-Type", "application/json")
-		if err := encoding_json.NewDecoder(r.Body).Decode(req); err != nil {
-			fmt.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", net_http.StatusText(net_http.StatusBadRequest))
-			w.WriteHeader(net_http.StatusBadRequest)
-			return
-		}
-
-		res, err := svc.Endpoint2(r.Context(), req)
-		if err != nil {
-			stt, _ := google_golang_org_grpc_status.FromError(err)
-			st := map[google_golang_org_grpc_codes.Code]int{
-				google_golang_org_grpc_codes.Canceled:           400,
-				google_golang_org_grpc_codes.Unknown:            500,
-				google_golang_org_grpc_codes.InvalidArgument:    400,
-				google_golang_org_grpc_codes.DeadlineExceeded:   503,
-				google_golang_org_grpc_codes.NotFound:           404,
-				google_golang_org_grpc_codes.AlreadyExists:      400,
-				google_golang_org_grpc_codes.PermissionDenied:   403,
-				google_golang_org_grpc_codes.ResourceExhausted:  503,
-				google_golang_org_grpc_codes.FailedPrecondition: 400,
-				google_golang_org_grpc_codes.Aborted:            400,
-				google_golang_org_grpc_codes.OutOfRange:         500,
-				google_golang_org_grpc_codes.Unimplemented:      404,
-				google_golang_org_grpc_codes.Internal:           500,
-				google_golang_org_grpc_codes.Unavailable:        503,
-				google_golang_org_grpc_codes.DataLoss:           500,
-				google_golang_org_grpc_codes.Unauthenticated:    401,
-			}[stt.Code()]
-			b, _ := encoding_json.Marshal(stt.Details())
-			fmt.Fprintf(w, "{%q:%q,%q:%q, %q: %s}", "error", err.Error(), "status", stt.Code().String(), "details", b)
-			w.WriteHeader(st)
-			return
-		}
-
-		if err := encoding_json.NewEncoder(w).Encode(res); err != nil {
 			fmt.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", net_http.StatusText(net_http.StatusInternalServerError))
-			w.WriteHeader(net_http.StatusInternalServerError)
-			return
-		}
-	})
-	mux.HandleFunc("/Service/Endpoint3", func(w net_http.ResponseWriter, r *net_http.Request) {
-		req := &Endpoint3Req{}
-		defer r.Body.Close()
-		w.Header().Set("Content-Type", "application/json")
-		if err := encoding_json.NewDecoder(r.Body).Decode(req); err != nil {
-			fmt.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", net_http.StatusText(net_http.StatusBadRequest))
-			w.WriteHeader(net_http.StatusBadRequest)
-			return
-		}
-
-		res, err := svc.Endpoint3(r.Context(), req)
-		if err != nil {
-			stt, _ := google_golang_org_grpc_status.FromError(err)
-			st := map[google_golang_org_grpc_codes.Code]int{
-				google_golang_org_grpc_codes.Canceled:           400,
-				google_golang_org_grpc_codes.Unknown:            500,
-				google_golang_org_grpc_codes.InvalidArgument:    400,
-				google_golang_org_grpc_codes.DeadlineExceeded:   503,
-				google_golang_org_grpc_codes.NotFound:           404,
-				google_golang_org_grpc_codes.AlreadyExists:      400,
-				google_golang_org_grpc_codes.PermissionDenied:   403,
-				google_golang_org_grpc_codes.ResourceExhausted:  503,
-				google_golang_org_grpc_codes.FailedPrecondition: 400,
-				google_golang_org_grpc_codes.Aborted:            400,
-				google_golang_org_grpc_codes.OutOfRange:         500,
-				google_golang_org_grpc_codes.Unimplemented:      404,
-				google_golang_org_grpc_codes.Internal:           500,
-				google_golang_org_grpc_codes.Unavailable:        503,
-				google_golang_org_grpc_codes.DataLoss:           500,
-				google_golang_org_grpc_codes.Unauthenticated:    401,
-			}[stt.Code()]
-			b, _ := encoding_json.Marshal(stt.Details())
-			fmt.Fprintf(w, "{%q:%q,%q:%q, %q: %s}", "error", err.Error(), "status", stt.Code().String(), "details", b)
-			w.WriteHeader(st)
-			return
-		}
-
-		if err := encoding_json.NewEncoder(w).Encode(res); err != nil {
-			fmt.Fprintf(w, "{%q:%q,%q:%q}", "error", err.Error(), "status", net_http.StatusText(net_http.StatusInternalServerError))
-			w.WriteHeader(net_http.StatusInternalServerError)
 			return
 		}
 	})

@@ -7,7 +7,7 @@ Try it:
 `git clone https://github.com/danielvladco/jrpc.git && cd ./jrpc/example && go run main.go` 
 
 Test it:
-`curl --data '{ "param1": "str", "param2": 1 }'  http://localhost:8080/Service/Endpoint1`
+`curl --data '{ "bool": true, "msg": { "param1": "test" } }'  http://localhost:8080/Service/Endpoint1`
 
 Generate command:
 `protoc --go_out=plugins=grpc,paths=source_relative:. --jrpc_out=paths=source_relative:. ./example/pb/*.proto`

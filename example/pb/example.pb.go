@@ -23,44 +23,83 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type Enum int32
+type Error int32
 
 const (
-	Enum_E0 Enum = 0
-	Enum_E1 Enum = 1
-	Enum_E2 Enum = 2
-	Enum_E3 Enum = 3
+	Error_OK                  Error = 0
+	Error_CANCELLED           Error = 1
+	Error_UNKNOWN             Error = 2
+	Error_INVALID_ARGUMENT    Error = 3
+	Error_DEADLINE_EXCEEDED   Error = 4
+	Error_NOT_FOUND           Error = 5
+	Error_ALREADY_EXISTS      Error = 6
+	Error_PERMISSION_DENIED   Error = 7
+	Error_UNAUTHENTICATED     Error = 8
+	Error_RESOURCE_EXHAUSTED  Error = 9
+	Error_FAILED_PRECONDITION Error = 10
+	Error_ABORTED             Error = 11
+	Error_OUT_OF_RANGE        Error = 12
+	Error_UNIMPLEMENTED       Error = 13
+	Error_INTERNAL            Error = 14
+	Error_UNAVAILABLE         Error = 15
+	Error_DATA_LOSS           Error = 16
 )
 
-var Enum_name = map[int32]string{
-	0: "E0",
-	1: "E1",
-	2: "E2",
-	3: "E3",
+var Error_name = map[int32]string{
+	0:  "OK",
+	1:  "CANCELLED",
+	2:  "UNKNOWN",
+	3:  "INVALID_ARGUMENT",
+	4:  "DEADLINE_EXCEEDED",
+	5:  "NOT_FOUND",
+	6:  "ALREADY_EXISTS",
+	7:  "PERMISSION_DENIED",
+	8:  "UNAUTHENTICATED",
+	9:  "RESOURCE_EXHAUSTED",
+	10: "FAILED_PRECONDITION",
+	11: "ABORTED",
+	12: "OUT_OF_RANGE",
+	13: "UNIMPLEMENTED",
+	14: "INTERNAL",
+	15: "UNAVAILABLE",
+	16: "DATA_LOSS",
 }
-var Enum_value = map[string]int32{
-	"E0": 0,
-	"E1": 1,
-	"E2": 2,
-	"E3": 3,
+var Error_value = map[string]int32{
+	"OK":                  0,
+	"CANCELLED":           1,
+	"UNKNOWN":             2,
+	"INVALID_ARGUMENT":    3,
+	"DEADLINE_EXCEEDED":   4,
+	"NOT_FOUND":           5,
+	"ALREADY_EXISTS":      6,
+	"PERMISSION_DENIED":   7,
+	"UNAUTHENTICATED":     8,
+	"RESOURCE_EXHAUSTED":  9,
+	"FAILED_PRECONDITION": 10,
+	"ABORTED":             11,
+	"OUT_OF_RANGE":        12,
+	"UNIMPLEMENTED":       13,
+	"INTERNAL":            14,
+	"UNAVAILABLE":         15,
+	"DATA_LOSS":           16,
 }
 
-func (x Enum) String() string {
-	return proto.EnumName(Enum_name, int32(x))
+func (x Error) String() string {
+	return proto.EnumName(Error_name, int32(x))
 }
-func (Enum) EnumDescriptor() ([]byte, []int) {
-	return fileDescriptor_example_5202eb82d8beefa2, []int{0}
+func (Error) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_example_2e0cd0e64c3af521, []int{0}
 }
 
 type Endpoint1Req struct {
-	Param1               string   `protobuf:"bytes,1,opt,name=param1,proto3" json:"param1,omitempty"`
-	Param2               int32    `protobuf:"varint,2,opt,name=param2,proto3" json:"param2,omitempty"`
-	Param3               int64    `protobuf:"varint,3,opt,name=param3,proto3" json:"param3,omitempty"`
-	Param4               uint32   `protobuf:"varint,4,opt,name=param4,proto3" json:"param4,omitempty"`
-	Param5               bool     `protobuf:"varint,5,opt,name=param5,proto3" json:"param5,omitempty"`
-	Param6               []byte   `protobuf:"bytes,6,opt,name=param6,proto3" json:"param6,omitempty"`
-	Param7               Enum     `protobuf:"varint,7,opt,name=param7,proto3,enum=pb.Enum" json:"param7,omitempty"`
-	Param8               *Msg     `protobuf:"bytes,8,opt,name=param8,proto3" json:"param8,omitempty"`
+	String_              string   `protobuf:"bytes,1,opt,name=string,proto3" json:"string,omitempty"`
+	Int32                int32    `protobuf:"varint,2,opt,name=int32,proto3" json:"int32,omitempty"`
+	Int64                int64    `protobuf:"varint,3,opt,name=int64,proto3" json:"int64,omitempty"`
+	Uint32               uint32   `protobuf:"varint,4,opt,name=uint32,proto3" json:"uint32,omitempty"`
+	Bool                 bool     `protobuf:"varint,5,opt,name=bool,proto3" json:"bool,omitempty"`
+	Bytes                []byte   `protobuf:"bytes,6,opt,name=bytes,proto3" json:"bytes,omitempty"`
+	Err                  Error    `protobuf:"varint,7,opt,name=err,proto3,enum=pb.Error" json:"err,omitempty"`
+	Msg                  *Msg     `protobuf:"bytes,8,opt,name=msg,proto3" json:"msg,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -70,7 +109,7 @@ func (m *Endpoint1Req) Reset()         { *m = Endpoint1Req{} }
 func (m *Endpoint1Req) String() string { return proto.CompactTextString(m) }
 func (*Endpoint1Req) ProtoMessage()    {}
 func (*Endpoint1Req) Descriptor() ([]byte, []int) {
-	return fileDescriptor_example_5202eb82d8beefa2, []int{0}
+	return fileDescriptor_example_2e0cd0e64c3af521, []int{0}
 }
 func (m *Endpoint1Req) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Endpoint1Req.Unmarshal(m, b)
@@ -90,71 +129,70 @@ func (m *Endpoint1Req) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Endpoint1Req proto.InternalMessageInfo
 
-func (m *Endpoint1Req) GetParam1() string {
+func (m *Endpoint1Req) GetString_() string {
 	if m != nil {
-		return m.Param1
+		return m.String_
 	}
 	return ""
 }
 
-func (m *Endpoint1Req) GetParam2() int32 {
+func (m *Endpoint1Req) GetInt32() int32 {
 	if m != nil {
-		return m.Param2
+		return m.Int32
 	}
 	return 0
 }
 
-func (m *Endpoint1Req) GetParam3() int64 {
+func (m *Endpoint1Req) GetInt64() int64 {
 	if m != nil {
-		return m.Param3
+		return m.Int64
 	}
 	return 0
 }
 
-func (m *Endpoint1Req) GetParam4() uint32 {
+func (m *Endpoint1Req) GetUint32() uint32 {
 	if m != nil {
-		return m.Param4
+		return m.Uint32
 	}
 	return 0
 }
 
-func (m *Endpoint1Req) GetParam5() bool {
+func (m *Endpoint1Req) GetBool() bool {
 	if m != nil {
-		return m.Param5
+		return m.Bool
 	}
 	return false
 }
 
-func (m *Endpoint1Req) GetParam6() []byte {
+func (m *Endpoint1Req) GetBytes() []byte {
 	if m != nil {
-		return m.Param6
+		return m.Bytes
 	}
 	return nil
 }
 
-func (m *Endpoint1Req) GetParam7() Enum {
+func (m *Endpoint1Req) GetErr() Error {
 	if m != nil {
-		return m.Param7
+		return m.Err
 	}
-	return Enum_E0
+	return Error_OK
 }
 
-func (m *Endpoint1Req) GetParam8() *Msg {
+func (m *Endpoint1Req) GetMsg() *Msg {
 	if m != nil {
-		return m.Param8
+		return m.Msg
 	}
 	return nil
 }
 
 type Endpoint1Res struct {
-	Param1               string   `protobuf:"bytes,1,opt,name=param1,proto3" json:"param1,omitempty"`
-	Param2               int32    `protobuf:"varint,2,opt,name=param2,proto3" json:"param2,omitempty"`
-	Param3               int64    `protobuf:"varint,3,opt,name=param3,proto3" json:"param3,omitempty"`
-	Param4               uint32   `protobuf:"varint,4,opt,name=param4,proto3" json:"param4,omitempty"`
-	Param5               bool     `protobuf:"varint,5,opt,name=param5,proto3" json:"param5,omitempty"`
-	Param6               []byte   `protobuf:"bytes,6,opt,name=param6,proto3" json:"param6,omitempty"`
-	Param7               Enum     `protobuf:"varint,7,opt,name=param7,proto3,enum=pb.Enum" json:"param7,omitempty"`
-	Param8               *Msg     `protobuf:"bytes,8,opt,name=param8,proto3" json:"param8,omitempty"`
+	String_              string   `protobuf:"bytes,1,opt,name=string,proto3" json:"string,omitempty"`
+	Int32                int32    `protobuf:"varint,2,opt,name=int32,proto3" json:"int32,omitempty"`
+	Int64                int64    `protobuf:"varint,3,opt,name=int64,proto3" json:"int64,omitempty"`
+	Uint32               uint32   `protobuf:"varint,4,opt,name=uint32,proto3" json:"uint32,omitempty"`
+	Bool                 bool     `protobuf:"varint,5,opt,name=bool,proto3" json:"bool,omitempty"`
+	Bytes                []byte   `protobuf:"bytes,6,opt,name=bytes,proto3" json:"bytes,omitempty"`
+	Msg                  *Msg     `protobuf:"bytes,8,opt,name=msg,proto3" json:"msg,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -164,7 +202,7 @@ func (m *Endpoint1Res) Reset()         { *m = Endpoint1Res{} }
 func (m *Endpoint1Res) String() string { return proto.CompactTextString(m) }
 func (*Endpoint1Res) ProtoMessage()    {}
 func (*Endpoint1Res) Descriptor() ([]byte, []int) {
-	return fileDescriptor_example_5202eb82d8beefa2, []int{1}
+	return fileDescriptor_example_2e0cd0e64c3af521, []int{1}
 }
 func (m *Endpoint1Res) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Endpoint1Res.Unmarshal(m, b)
@@ -184,434 +222,51 @@ func (m *Endpoint1Res) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Endpoint1Res proto.InternalMessageInfo
 
-func (m *Endpoint1Res) GetParam1() string {
+func (m *Endpoint1Res) GetString_() string {
 	if m != nil {
-		return m.Param1
+		return m.String_
 	}
 	return ""
 }
 
-func (m *Endpoint1Res) GetParam2() int32 {
+func (m *Endpoint1Res) GetInt32() int32 {
 	if m != nil {
-		return m.Param2
+		return m.Int32
 	}
 	return 0
 }
 
-func (m *Endpoint1Res) GetParam3() int64 {
+func (m *Endpoint1Res) GetInt64() int64 {
 	if m != nil {
-		return m.Param3
+		return m.Int64
 	}
 	return 0
 }
 
-func (m *Endpoint1Res) GetParam4() uint32 {
+func (m *Endpoint1Res) GetUint32() uint32 {
 	if m != nil {
-		return m.Param4
+		return m.Uint32
 	}
 	return 0
 }
 
-func (m *Endpoint1Res) GetParam5() bool {
+func (m *Endpoint1Res) GetBool() bool {
 	if m != nil {
-		return m.Param5
+		return m.Bool
 	}
 	return false
 }
 
-func (m *Endpoint1Res) GetParam6() []byte {
+func (m *Endpoint1Res) GetBytes() []byte {
 	if m != nil {
-		return m.Param6
+		return m.Bytes
 	}
 	return nil
 }
 
-func (m *Endpoint1Res) GetParam7() Enum {
+func (m *Endpoint1Res) GetMsg() *Msg {
 	if m != nil {
-		return m.Param7
-	}
-	return Enum_E0
-}
-
-func (m *Endpoint1Res) GetParam8() *Msg {
-	if m != nil {
-		return m.Param8
-	}
-	return nil
-}
-
-type Endpoint2Req struct {
-	Param1               string   `protobuf:"bytes,1,opt,name=param1,proto3" json:"param1,omitempty"`
-	Param2               int32    `protobuf:"varint,2,opt,name=param2,proto3" json:"param2,omitempty"`
-	Param3               int64    `protobuf:"varint,3,opt,name=param3,proto3" json:"param3,omitempty"`
-	Param4               uint32   `protobuf:"varint,4,opt,name=param4,proto3" json:"param4,omitempty"`
-	Param5               bool     `protobuf:"varint,5,opt,name=param5,proto3" json:"param5,omitempty"`
-	Param6               []byte   `protobuf:"bytes,6,opt,name=param6,proto3" json:"param6,omitempty"`
-	Param7               Enum     `protobuf:"varint,7,opt,name=param7,proto3,enum=pb.Enum" json:"param7,omitempty"`
-	Param8               *Msg     `protobuf:"bytes,8,opt,name=param8,proto3" json:"param8,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Endpoint2Req) Reset()         { *m = Endpoint2Req{} }
-func (m *Endpoint2Req) String() string { return proto.CompactTextString(m) }
-func (*Endpoint2Req) ProtoMessage()    {}
-func (*Endpoint2Req) Descriptor() ([]byte, []int) {
-	return fileDescriptor_example_5202eb82d8beefa2, []int{2}
-}
-func (m *Endpoint2Req) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Endpoint2Req.Unmarshal(m, b)
-}
-func (m *Endpoint2Req) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Endpoint2Req.Marshal(b, m, deterministic)
-}
-func (dst *Endpoint2Req) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Endpoint2Req.Merge(dst, src)
-}
-func (m *Endpoint2Req) XXX_Size() int {
-	return xxx_messageInfo_Endpoint2Req.Size(m)
-}
-func (m *Endpoint2Req) XXX_DiscardUnknown() {
-	xxx_messageInfo_Endpoint2Req.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Endpoint2Req proto.InternalMessageInfo
-
-func (m *Endpoint2Req) GetParam1() string {
-	if m != nil {
-		return m.Param1
-	}
-	return ""
-}
-
-func (m *Endpoint2Req) GetParam2() int32 {
-	if m != nil {
-		return m.Param2
-	}
-	return 0
-}
-
-func (m *Endpoint2Req) GetParam3() int64 {
-	if m != nil {
-		return m.Param3
-	}
-	return 0
-}
-
-func (m *Endpoint2Req) GetParam4() uint32 {
-	if m != nil {
-		return m.Param4
-	}
-	return 0
-}
-
-func (m *Endpoint2Req) GetParam5() bool {
-	if m != nil {
-		return m.Param5
-	}
-	return false
-}
-
-func (m *Endpoint2Req) GetParam6() []byte {
-	if m != nil {
-		return m.Param6
-	}
-	return nil
-}
-
-func (m *Endpoint2Req) GetParam7() Enum {
-	if m != nil {
-		return m.Param7
-	}
-	return Enum_E0
-}
-
-func (m *Endpoint2Req) GetParam8() *Msg {
-	if m != nil {
-		return m.Param8
-	}
-	return nil
-}
-
-type Endpoint2Res struct {
-	Param1               string   `protobuf:"bytes,1,opt,name=param1,proto3" json:"param1,omitempty"`
-	Param2               int32    `protobuf:"varint,2,opt,name=param2,proto3" json:"param2,omitempty"`
-	Param3               int64    `protobuf:"varint,3,opt,name=param3,proto3" json:"param3,omitempty"`
-	Param4               uint32   `protobuf:"varint,4,opt,name=param4,proto3" json:"param4,omitempty"`
-	Param5               bool     `protobuf:"varint,5,opt,name=param5,proto3" json:"param5,omitempty"`
-	Param6               []byte   `protobuf:"bytes,6,opt,name=param6,proto3" json:"param6,omitempty"`
-	Param7               Enum     `protobuf:"varint,7,opt,name=param7,proto3,enum=pb.Enum" json:"param7,omitempty"`
-	Param8               *Msg     `protobuf:"bytes,8,opt,name=param8,proto3" json:"param8,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Endpoint2Res) Reset()         { *m = Endpoint2Res{} }
-func (m *Endpoint2Res) String() string { return proto.CompactTextString(m) }
-func (*Endpoint2Res) ProtoMessage()    {}
-func (*Endpoint2Res) Descriptor() ([]byte, []int) {
-	return fileDescriptor_example_5202eb82d8beefa2, []int{3}
-}
-func (m *Endpoint2Res) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Endpoint2Res.Unmarshal(m, b)
-}
-func (m *Endpoint2Res) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Endpoint2Res.Marshal(b, m, deterministic)
-}
-func (dst *Endpoint2Res) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Endpoint2Res.Merge(dst, src)
-}
-func (m *Endpoint2Res) XXX_Size() int {
-	return xxx_messageInfo_Endpoint2Res.Size(m)
-}
-func (m *Endpoint2Res) XXX_DiscardUnknown() {
-	xxx_messageInfo_Endpoint2Res.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Endpoint2Res proto.InternalMessageInfo
-
-func (m *Endpoint2Res) GetParam1() string {
-	if m != nil {
-		return m.Param1
-	}
-	return ""
-}
-
-func (m *Endpoint2Res) GetParam2() int32 {
-	if m != nil {
-		return m.Param2
-	}
-	return 0
-}
-
-func (m *Endpoint2Res) GetParam3() int64 {
-	if m != nil {
-		return m.Param3
-	}
-	return 0
-}
-
-func (m *Endpoint2Res) GetParam4() uint32 {
-	if m != nil {
-		return m.Param4
-	}
-	return 0
-}
-
-func (m *Endpoint2Res) GetParam5() bool {
-	if m != nil {
-		return m.Param5
-	}
-	return false
-}
-
-func (m *Endpoint2Res) GetParam6() []byte {
-	if m != nil {
-		return m.Param6
-	}
-	return nil
-}
-
-func (m *Endpoint2Res) GetParam7() Enum {
-	if m != nil {
-		return m.Param7
-	}
-	return Enum_E0
-}
-
-func (m *Endpoint2Res) GetParam8() *Msg {
-	if m != nil {
-		return m.Param8
-	}
-	return nil
-}
-
-type Endpoint3Req struct {
-	Param1               string   `protobuf:"bytes,1,opt,name=param1,proto3" json:"param1,omitempty"`
-	Param2               int32    `protobuf:"varint,2,opt,name=param2,proto3" json:"param2,omitempty"`
-	Param3               int64    `protobuf:"varint,3,opt,name=param3,proto3" json:"param3,omitempty"`
-	Param4               uint32   `protobuf:"varint,4,opt,name=param4,proto3" json:"param4,omitempty"`
-	Param5               bool     `protobuf:"varint,5,opt,name=param5,proto3" json:"param5,omitempty"`
-	Param6               []byte   `protobuf:"bytes,6,opt,name=param6,proto3" json:"param6,omitempty"`
-	Param7               Enum     `protobuf:"varint,7,opt,name=param7,proto3,enum=pb.Enum" json:"param7,omitempty"`
-	Param8               *Msg     `protobuf:"bytes,8,opt,name=param8,proto3" json:"param8,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Endpoint3Req) Reset()         { *m = Endpoint3Req{} }
-func (m *Endpoint3Req) String() string { return proto.CompactTextString(m) }
-func (*Endpoint3Req) ProtoMessage()    {}
-func (*Endpoint3Req) Descriptor() ([]byte, []int) {
-	return fileDescriptor_example_5202eb82d8beefa2, []int{4}
-}
-func (m *Endpoint3Req) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Endpoint3Req.Unmarshal(m, b)
-}
-func (m *Endpoint3Req) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Endpoint3Req.Marshal(b, m, deterministic)
-}
-func (dst *Endpoint3Req) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Endpoint3Req.Merge(dst, src)
-}
-func (m *Endpoint3Req) XXX_Size() int {
-	return xxx_messageInfo_Endpoint3Req.Size(m)
-}
-func (m *Endpoint3Req) XXX_DiscardUnknown() {
-	xxx_messageInfo_Endpoint3Req.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Endpoint3Req proto.InternalMessageInfo
-
-func (m *Endpoint3Req) GetParam1() string {
-	if m != nil {
-		return m.Param1
-	}
-	return ""
-}
-
-func (m *Endpoint3Req) GetParam2() int32 {
-	if m != nil {
-		return m.Param2
-	}
-	return 0
-}
-
-func (m *Endpoint3Req) GetParam3() int64 {
-	if m != nil {
-		return m.Param3
-	}
-	return 0
-}
-
-func (m *Endpoint3Req) GetParam4() uint32 {
-	if m != nil {
-		return m.Param4
-	}
-	return 0
-}
-
-func (m *Endpoint3Req) GetParam5() bool {
-	if m != nil {
-		return m.Param5
-	}
-	return false
-}
-
-func (m *Endpoint3Req) GetParam6() []byte {
-	if m != nil {
-		return m.Param6
-	}
-	return nil
-}
-
-func (m *Endpoint3Req) GetParam7() Enum {
-	if m != nil {
-		return m.Param7
-	}
-	return Enum_E0
-}
-
-func (m *Endpoint3Req) GetParam8() *Msg {
-	if m != nil {
-		return m.Param8
-	}
-	return nil
-}
-
-type Endpoint3Res struct {
-	Param1               string   `protobuf:"bytes,1,opt,name=param1,proto3" json:"param1,omitempty"`
-	Param2               int32    `protobuf:"varint,2,opt,name=param2,proto3" json:"param2,omitempty"`
-	Param3               int64    `protobuf:"varint,3,opt,name=param3,proto3" json:"param3,omitempty"`
-	Param4               uint32   `protobuf:"varint,4,opt,name=param4,proto3" json:"param4,omitempty"`
-	Param5               bool     `protobuf:"varint,5,opt,name=param5,proto3" json:"param5,omitempty"`
-	Param6               []byte   `protobuf:"bytes,6,opt,name=param6,proto3" json:"param6,omitempty"`
-	Param7               Enum     `protobuf:"varint,7,opt,name=param7,proto3,enum=pb.Enum" json:"param7,omitempty"`
-	Param8               *Msg     `protobuf:"bytes,8,opt,name=param8,proto3" json:"param8,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Endpoint3Res) Reset()         { *m = Endpoint3Res{} }
-func (m *Endpoint3Res) String() string { return proto.CompactTextString(m) }
-func (*Endpoint3Res) ProtoMessage()    {}
-func (*Endpoint3Res) Descriptor() ([]byte, []int) {
-	return fileDescriptor_example_5202eb82d8beefa2, []int{5}
-}
-func (m *Endpoint3Res) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Endpoint3Res.Unmarshal(m, b)
-}
-func (m *Endpoint3Res) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Endpoint3Res.Marshal(b, m, deterministic)
-}
-func (dst *Endpoint3Res) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Endpoint3Res.Merge(dst, src)
-}
-func (m *Endpoint3Res) XXX_Size() int {
-	return xxx_messageInfo_Endpoint3Res.Size(m)
-}
-func (m *Endpoint3Res) XXX_DiscardUnknown() {
-	xxx_messageInfo_Endpoint3Res.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Endpoint3Res proto.InternalMessageInfo
-
-func (m *Endpoint3Res) GetParam1() string {
-	if m != nil {
-		return m.Param1
-	}
-	return ""
-}
-
-func (m *Endpoint3Res) GetParam2() int32 {
-	if m != nil {
-		return m.Param2
-	}
-	return 0
-}
-
-func (m *Endpoint3Res) GetParam3() int64 {
-	if m != nil {
-		return m.Param3
-	}
-	return 0
-}
-
-func (m *Endpoint3Res) GetParam4() uint32 {
-	if m != nil {
-		return m.Param4
-	}
-	return 0
-}
-
-func (m *Endpoint3Res) GetParam5() bool {
-	if m != nil {
-		return m.Param5
-	}
-	return false
-}
-
-func (m *Endpoint3Res) GetParam6() []byte {
-	if m != nil {
-		return m.Param6
-	}
-	return nil
-}
-
-func (m *Endpoint3Res) GetParam7() Enum {
-	if m != nil {
-		return m.Param7
-	}
-	return Enum_E0
-}
-
-func (m *Endpoint3Res) GetParam8() *Msg {
-	if m != nil {
-		return m.Param8
+		return m.Msg
 	}
 	return nil
 }
@@ -627,7 +282,7 @@ func (m *Msg) Reset()         { *m = Msg{} }
 func (m *Msg) String() string { return proto.CompactTextString(m) }
 func (*Msg) ProtoMessage()    {}
 func (*Msg) Descriptor() ([]byte, []int) {
-	return fileDescriptor_example_5202eb82d8beefa2, []int{6}
+	return fileDescriptor_example_2e0cd0e64c3af521, []int{2}
 }
 func (m *Msg) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Msg.Unmarshal(m, b)
@@ -657,12 +312,8 @@ func (m *Msg) GetParam1() string {
 func init() {
 	proto.RegisterType((*Endpoint1Req)(nil), "pb.Endpoint1Req")
 	proto.RegisterType((*Endpoint1Res)(nil), "pb.Endpoint1Res")
-	proto.RegisterType((*Endpoint2Req)(nil), "pb.Endpoint2Req")
-	proto.RegisterType((*Endpoint2Res)(nil), "pb.Endpoint2Res")
-	proto.RegisterType((*Endpoint3Req)(nil), "pb.Endpoint3Req")
-	proto.RegisterType((*Endpoint3Res)(nil), "pb.Endpoint3Res")
 	proto.RegisterType((*Msg)(nil), "pb.Msg")
-	proto.RegisterEnum("pb.Enum", Enum_name, Enum_value)
+	proto.RegisterEnum("pb.Error", Error_name, Error_value)
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -678,8 +329,6 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ServiceClient interface {
 	Endpoint1(ctx context.Context, in *Endpoint1Req, opts ...grpc.CallOption) (*Endpoint1Res, error)
-	Endpoint2(ctx context.Context, in *Endpoint2Req, opts ...grpc.CallOption) (*Endpoint2Res, error)
-	Endpoint3(ctx context.Context, in *Endpoint3Req, opts ...grpc.CallOption) (*Endpoint3Res, error)
 }
 
 type serviceClient struct {
@@ -699,29 +348,9 @@ func (c *serviceClient) Endpoint1(ctx context.Context, in *Endpoint1Req, opts ..
 	return out, nil
 }
 
-func (c *serviceClient) Endpoint2(ctx context.Context, in *Endpoint2Req, opts ...grpc.CallOption) (*Endpoint2Res, error) {
-	out := new(Endpoint2Res)
-	err := c.cc.Invoke(ctx, "/pb.Service/Endpoint2", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *serviceClient) Endpoint3(ctx context.Context, in *Endpoint3Req, opts ...grpc.CallOption) (*Endpoint3Res, error) {
-	out := new(Endpoint3Res)
-	err := c.cc.Invoke(ctx, "/pb.Service/Endpoint3", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // ServiceServer is the server API for Service service.
 type ServiceServer interface {
 	Endpoint1(context.Context, *Endpoint1Req) (*Endpoint1Res, error)
-	Endpoint2(context.Context, *Endpoint2Req) (*Endpoint2Res, error)
-	Endpoint3(context.Context, *Endpoint3Req) (*Endpoint3Res, error)
 }
 
 func RegisterServiceServer(s *grpc.Server, srv ServiceServer) {
@@ -746,42 +375,6 @@ func _Service_Endpoint1_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Service_Endpoint2_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Endpoint2Req)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceServer).Endpoint2(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.Service/Endpoint2",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceServer).Endpoint2(ctx, req.(*Endpoint2Req))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Service_Endpoint3_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Endpoint3Req)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ServiceServer).Endpoint3(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.Service/Endpoint3",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ServiceServer).Endpoint3(ctx, req.(*Endpoint3Req))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 var _Service_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "pb.Service",
 	HandlerType: (*ServiceServer)(nil),
@@ -790,42 +383,48 @@ var _Service_serviceDesc = grpc.ServiceDesc{
 			MethodName: "Endpoint1",
 			Handler:    _Service_Endpoint1_Handler,
 		},
-		{
-			MethodName: "Endpoint2",
-			Handler:    _Service_Endpoint2_Handler,
-		},
-		{
-			MethodName: "Endpoint3",
-			Handler:    _Service_Endpoint3_Handler,
-		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "example/pb/example.proto",
 }
 
-func init() { proto.RegisterFile("example/pb/example.proto", fileDescriptor_example_5202eb82d8beefa2) }
+func init() { proto.RegisterFile("example/pb/example.proto", fileDescriptor_example_2e0cd0e64c3af521) }
 
-var fileDescriptor_example_5202eb82d8beefa2 = []byte{
-	// 332 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x95, 0xdf, 0x4a, 0xc3, 0x30,
-	0x14, 0xc6, 0x3d, 0xed, 0xd6, 0x6d, 0x71, 0x4a, 0xc9, 0x85, 0x04, 0x41, 0x0c, 0x5e, 0x48, 0x18,
-	0xd2, 0xba, 0x64, 0xff, 0xc0, 0x3b, 0x61, 0x97, 0xbb, 0x99, 0x77, 0xde, 0x35, 0x5d, 0x98, 0x95,
-	0xb5, 0x8d, 0xed, 0x36, 0x7c, 0x18, 0x5f, 0xce, 0x37, 0x91, 0xd5, 0x90, 0xb9, 0x0d, 0x5f, 0x60,
-	0xbb, 0x3a, 0xc9, 0x8f, 0xef, 0x0b, 0x39, 0x7c, 0x70, 0x0e, 0x22, 0xea, 0x33, 0x4a, 0xf5, 0x42,
-	0x85, 0x5a, 0x86, 0xe6, 0x18, 0xe8, 0x22, 0x5f, 0xe6, 0xd8, 0xd1, 0xf2, 0xee, 0x1b, 0x50, 0x7b,
-	0x9c, 0xcd, 0x74, 0x9e, 0x64, 0xcb, 0xee, 0x54, 0x7d, 0xe0, 0x2b, 0xe4, 0xe9, 0xa8, 0x88, 0xd2,
-	0x2e, 0x01, 0x0a, 0xac, 0x35, 0x35, 0x37, 0xcb, 0x39, 0x71, 0x28, 0xb0, 0xba, 0xe1, 0xdc, 0x72,
-	0x41, 0x5c, 0x0a, 0xcc, 0x35, 0x5c, 0x58, 0xde, 0x23, 0x35, 0x0a, 0xec, 0xc2, 0xf0, 0x9e, 0xe5,
-	0x7d, 0x52, 0xa7, 0xc0, 0x9a, 0x86, 0xf7, 0x2d, 0x1f, 0x10, 0x8f, 0x02, 0x6b, 0x1b, 0x3e, 0xc0,
-	0xd4, 0xf0, 0x21, 0x69, 0x50, 0x60, 0x97, 0xbc, 0x19, 0x68, 0x19, 0x8c, 0xb3, 0x55, 0x6a, 0x14,
-	0x43, 0x7c, 0x6b, 0x14, 0x23, 0xd2, 0xa4, 0xc0, 0xce, 0x79, 0x63, 0xa3, 0x98, 0x94, 0x73, 0x23,
-	0x18, 0xed, 0xf7, 0x58, 0x1e, 0x7b, 0x8f, 0xfc, 0x04, 0x72, 0xe4, 0x27, 0x90, 0xa3, 0x38, 0x81,
-	0x1c, 0xc5, 0x91, 0xe6, 0x78, 0x83, 0xdc, 0x49, 0x39, 0xff, 0xaf, 0xb3, 0xce, 0x3d, 0xaa, 0x6d,
-	0xde, 0xc3, 0x1e, 0x72, 0xc6, 0x8f, 0xfe, 0x59, 0x55, 0xbb, 0x3e, 0x54, 0x95, 0xfb, 0x4e, 0x55,
-	0x85, 0xef, 0xf2, 0x2f, 0x40, 0x8d, 0x17, 0x55, 0xac, 0x93, 0x58, 0xe1, 0x10, 0xb5, 0xec, 0x14,
-	0xc3, 0xfe, 0xef, 0x97, 0xb6, 0x83, 0xfb, 0x7a, 0x9f, 0x94, 0x7f, 0x0d, 0x7c, 0xd7, 0xc0, 0x0f,
-	0x0c, 0x7c, 0xcf, 0x20, 0x76, 0x0d, 0xe2, 0xc0, 0xb0, 0x09, 0xee, 0xf9, 0xe1, 0xb5, 0x33, 0x4f,
-	0x96, 0x6f, 0x2b, 0x19, 0xc4, 0x79, 0x1a, 0xce, 0xa2, 0x2c, 0x51, 0x8b, 0xf5, 0x22, 0x9a, 0xc5,
-	0x79, 0xf8, 0x5e, 0xe8, 0x38, 0xdc, 0xae, 0x9e, 0x27, 0x2d, 0xa5, 0x57, 0xad, 0x1d, 0xf1, 0x13,
-	0x00, 0x00, 0xff, 0xff, 0x8d, 0xd0, 0x1f, 0x80, 0x92, 0x06, 0x00, 0x00,
+var fileDescriptor_example_2e0cd0e64c3af521 = []byte{
+	// 547 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x93, 0xcd, 0x6e, 0xd3, 0x40,
+	0x10, 0xc7, 0x71, 0xd2, 0x7c, 0x4d, 0x92, 0x76, 0xbb, 0x2d, 0xc5, 0x80, 0x90, 0xac, 0x9e, 0xac,
+	0x0a, 0x25, 0x6a, 0x8a, 0x38, 0xc0, 0x69, 0x9b, 0x9d, 0xb6, 0xab, 0x3a, 0xbb, 0xd5, 0xda, 0x2e,
+	0x85, 0x8b, 0x15, 0xa7, 0x56, 0x08, 0x4a, 0x62, 0x63, 0xbb, 0x15, 0x3c, 0x15, 0x57, 0x1e, 0x82,
+	0x87, 0x42, 0x9b, 0x84, 0xcf, 0x03, 0x67, 0x6e, 0xf3, 0xfb, 0xef, 0xec, 0xcc, 0xfc, 0xa5, 0x19,
+	0xb0, 0x93, 0x4f, 0xe3, 0x45, 0x36, 0x4f, 0xfa, 0x59, 0xdc, 0xdf, 0x84, 0xbd, 0x2c, 0x4f, 0xcb,
+	0x94, 0x56, 0xb2, 0xf8, 0xf0, 0x9b, 0x05, 0x1d, 0x5c, 0xde, 0x66, 0xe9, 0x6c, 0x59, 0x1e, 0xeb,
+	0xe4, 0x23, 0x3d, 0x80, 0x7a, 0x51, 0xe6, 0xb3, 0xe5, 0xd4, 0xb6, 0x1c, 0xcb, 0x6d, 0xe9, 0x0d,
+	0xd1, 0x7d, 0xa8, 0xcd, 0x96, 0xe5, 0xc9, 0xc0, 0xae, 0x38, 0x96, 0x5b, 0xd3, 0x6b, 0xd8, 0xa8,
+	0x2f, 0x5f, 0xd8, 0x55, 0xc7, 0x72, 0xab, 0x7a, 0x0d, 0xa6, 0xc6, 0xdd, 0x3a, 0x79, 0xcb, 0xb1,
+	0xdc, 0xae, 0xde, 0x10, 0xa5, 0xb0, 0x15, 0xa7, 0xe9, 0xdc, 0xae, 0x39, 0x96, 0xdb, 0xd4, 0xab,
+	0xd8, 0x54, 0x88, 0x3f, 0x97, 0x49, 0x61, 0xd7, 0x1d, 0xcb, 0xed, 0xe8, 0x35, 0xd0, 0xa7, 0x50,
+	0x4d, 0xf2, 0xdc, 0x6e, 0x38, 0x96, 0xbb, 0x3d, 0x68, 0xf5, 0xb2, 0xb8, 0x87, 0x79, 0x9e, 0xe6,
+	0xda, 0xa8, 0xf4, 0x31, 0x54, 0x17, 0xc5, 0xd4, 0x6e, 0x3a, 0x96, 0xdb, 0x1e, 0x34, 0xcc, 0xe3,
+	0xa8, 0x98, 0x6a, 0xa3, 0x1d, 0x7e, 0xf9, 0xd3, 0x4e, 0xf1, 0x9f, 0xd8, 0xf9, 0xc7, 0xc4, 0xcf,
+	0xa0, 0x3a, 0x2a, 0xa6, 0xa6, 0x47, 0x36, 0xce, 0xc7, 0x8b, 0xe3, 0x1f, 0x73, 0xae, 0xe9, 0xe8,
+	0x6b, 0x05, 0x6a, 0x2b, 0xeb, 0xb4, 0x0e, 0x15, 0x75, 0x49, 0x1e, 0xd0, 0x2e, 0xb4, 0x86, 0x4c,
+	0x0e, 0xd1, 0xf3, 0x90, 0x13, 0x8b, 0xb6, 0xa1, 0x11, 0xca, 0x4b, 0xa9, 0xde, 0x48, 0x52, 0xa1,
+	0xfb, 0x40, 0x84, 0xbc, 0x66, 0x9e, 0xe0, 0x11, 0xd3, 0xe7, 0xe1, 0x08, 0x65, 0x40, 0xaa, 0xf4,
+	0x21, 0xec, 0x72, 0x64, 0xdc, 0x13, 0x12, 0x23, 0xbc, 0x19, 0x22, 0x72, 0xe4, 0x64, 0xcb, 0x14,
+	0x92, 0x2a, 0x88, 0xce, 0x54, 0x28, 0x39, 0xa9, 0x51, 0x0a, 0xdb, 0xcc, 0xd3, 0xc8, 0xf8, 0xdb,
+	0x08, 0x6f, 0x84, 0x1f, 0xf8, 0xa4, 0x6e, 0x7e, 0x5e, 0xa1, 0x1e, 0x09, 0xdf, 0x17, 0x4a, 0x46,
+	0x1c, 0xa5, 0x40, 0x4e, 0x1a, 0x74, 0x0f, 0x76, 0x42, 0xc9, 0xc2, 0xe0, 0x02, 0x65, 0x20, 0x86,
+	0x2c, 0x40, 0x4e, 0x9a, 0xf4, 0x00, 0xa8, 0x46, 0x5f, 0x85, 0x7a, 0x68, 0xba, 0x5c, 0xb0, 0xd0,
+	0x37, 0x7a, 0x8b, 0x3e, 0x82, 0xbd, 0x33, 0x26, 0x3c, 0xe4, 0xd1, 0x95, 0xc6, 0xa1, 0x92, 0x5c,
+	0x04, 0x42, 0x49, 0x02, 0x66, 0x72, 0x76, 0xaa, 0xb4, 0xc9, 0x6a, 0x53, 0x02, 0x1d, 0x15, 0x06,
+	0x91, 0x3a, 0x8b, 0x34, 0x93, 0xe7, 0x48, 0x3a, 0x74, 0x17, 0xba, 0xa1, 0x14, 0xa3, 0x2b, 0x0f,
+	0x8d, 0x0d, 0xe4, 0xa4, 0x4b, 0x3b, 0xd0, 0x14, 0x32, 0x40, 0x2d, 0x99, 0x47, 0xb6, 0xe9, 0x0e,
+	0xb4, 0x43, 0xc9, 0xae, 0x99, 0xf0, 0xd8, 0xa9, 0x87, 0x64, 0xc7, 0x18, 0xe2, 0x2c, 0x60, 0x91,
+	0xa7, 0x7c, 0x9f, 0x90, 0xc1, 0x2b, 0x68, 0xf8, 0x49, 0x7e, 0x3f, 0x9b, 0x24, 0xb4, 0x0f, 0xad,
+	0x9f, 0x5b, 0x41, 0xc9, 0x6a, 0x9d, 0x7e, 0xdb, 0xf9, 0x27, 0x7f, 0x2b, 0xc5, 0xe9, 0xf3, 0x77,
+	0x47, 0xd3, 0x59, 0xf9, 0xfe, 0x2e, 0xee, 0x4d, 0xd2, 0x45, 0xff, 0x76, 0xbc, 0x9c, 0x25, 0xf3,
+	0xfb, 0xf9, 0xf8, 0x76, 0x92, 0xf6, 0x3f, 0xe4, 0xd9, 0xa4, 0xff, 0xeb, 0xa6, 0x5e, 0x67, 0x71,
+	0x5c, 0x5f, 0xdd, 0xd3, 0xc9, 0xf7, 0x00, 0x00, 0x00, 0xff, 0xff, 0xb1, 0xdf, 0x16, 0xc0, 0x6b,
+	0x03, 0x00, 0x00,
 }
